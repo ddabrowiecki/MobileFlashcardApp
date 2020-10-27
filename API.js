@@ -5,5 +5,7 @@ import {
 export function getDecks () {
     return Promise.all([
         _getDecks(),
-    ])
+    ]).then(([ decks ]) => ({
+        decks,
+    }))
 }
