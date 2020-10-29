@@ -5,7 +5,7 @@ import { getDecks } from '../API.js'
 
 export function handleGetDecks() {
   return (dispatch) => {
-    getDecks().then(({ decks }) => {
+    getDecks().then(( decks ) => {
       dispatch(receiveDecks(decks));
     });
   };

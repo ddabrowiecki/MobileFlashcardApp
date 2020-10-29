@@ -1,15 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
 
-export default function Deck () {
-    return(
-        <View>
-            <Text>
-                Question Text
-            </Text>
-            <Text>
-                Answer Text
-            </Text>
-        </View>
-    )
+export default class Deck extends React.Component {
+
 }
