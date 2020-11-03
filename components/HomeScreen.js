@@ -20,8 +20,8 @@ class HomeScreen extends React.Component {
         {deckArray &&
           deckArray.map((deck) => {
             return (
-              <Text>
-                <DeckPreview key={deck.id} deck={deck} />
+              <Text key={deck.id}>
+                <DeckPreview deck={deck} />
               </Text>
             );
           })}

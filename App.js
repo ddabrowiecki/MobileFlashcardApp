@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import reducer from "./reducers";
 import HomeScreen from "./components/HomeScreen";
 import Deck from "./components/Deck"
+import Quiz from "./components/Quiz"
 import middleware from "./middleware";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -22,6 +23,7 @@ export default function App() {
           <Stack.Navigator>
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="Deck" component={Deck} />
+            <Stack.Screen name="Quiz" component={Quiz} />
           </Stack.Navigator>
       </Provider>
     </NavigationContainer>

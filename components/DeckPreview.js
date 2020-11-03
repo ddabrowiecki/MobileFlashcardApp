@@ -9,7 +9,7 @@ export default function DeckPreview(props) {
       <View style={styles.deckWrapper}>
         <TouchableOpacity
           style={styles.deckButton}
-          onPress={() => navigation.navigate("Deck")}
+          onPress={() => navigation.navigate("Deck", {deck: props.deck})}
         >
           <Text style={styles.deckName}>{props.deck.id}</Text>
           <Text style={styles.cardAmount}>
