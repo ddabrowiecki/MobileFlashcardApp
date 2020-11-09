@@ -1,23 +1,24 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { useNavigation } from '@react-navigation/native';
+import { render } from "react-dom";
 
-export default function DeckPreview(props) {
-    const navigation = useNavigation()
+export default class DeckPreview extends React.Component {
+  render() {
+    const { deck, navigation } = this.props;
   return (
       <View style={styles.deckWrapper}>
         <TouchableOpacity
           style={styles.deckButton}
-          onPress={() => navigation.navigate("Deck", {deck: props.deck})}
+          onPress={() => navigation.navigate("Deck", {deck: deck})}
         >
-          <Text style={styles.deckName}>{props.deck.id}</Text>
+          <Text style={styles.deckName}>{deck.id}</Text>
           <Text style={styles.cardAmount}>
-            {`${props.deck.questions.length} cards`}
+            {`${deck.questions.length} cards`}
           </Text>
         </TouchableOpacity>
       </View>
-  );
+  )};
 }
 
 

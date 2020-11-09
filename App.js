@@ -7,6 +7,8 @@ import reducer from "./reducers";
 import HomeScreen from "./components/HomeScreen";
 import Deck from "./components/Deck"
 import Quiz from "./components/Quiz"
+import AddQuestion from "./components/AddQuestion"
+import AddDeck from "./components/AddDeck"
 import middleware from "./middleware";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -24,6 +26,8 @@ export default function App() {
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="Deck" component={Deck} />
             <Stack.Screen name="Quiz" component={Quiz} />
+            <Stack.Screen name="AddQuestion" component={AddQuestion} />
+            <Stack.Screen name="AddDeck" component={AddDeck} />
           </Stack.Navigator>
       </Provider>
     </NavigationContainer>
