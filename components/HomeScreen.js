@@ -21,7 +21,7 @@ class HomeScreen extends React.Component {
           deckArray.map((deck) => {
             return (
               <Text key={deck.id}>
-                <DeckPreview deck={deck} />
+                <DeckPreview deck={deck} style={styles.deckPreview} />
               </Text>
             );
           })}
@@ -30,21 +30,6 @@ class HomeScreen extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  header: {
-    fontSize: 20,
-    backgroundColor: "red",
-    color: "white",
-  },
-  container: {
-    flex: 1,
-    alignItems: "flex-start",
-    paddingTop: 50,
-    borderColor: "black",
-    margin: 5,
-  },
-});
-
 function mapStateToProps({ decks }) {
   return {
     decks,
@@ -52,3 +37,24 @@ function mapStateToProps({ decks }) {
 }
 
 export default connect(mapStateToProps)(HomeScreen);
+
+const styles = StyleSheet.create({
+  header: {
+    fontSize: 30,
+    backgroundColor: "red",
+    color: "white",
+    borderRadius: 6,
+    padding: 10,
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    paddingTop: 50,
+    borderColor: "black",
+    margin: 5,
+  },
+  deckPreview: {
+    flex: 1,
+    alignItems: "center",
+  },
+});
