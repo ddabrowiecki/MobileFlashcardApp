@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { handleAddDeck } from "../actions/index"
+import { handleAddDeck, addDeckToStore } from "../actions/index" 
 
 class AddDeck extends React.Component {
   state = {
@@ -19,8 +19,10 @@ class AddDeck extends React.Component {
     e.preventDefault();
     const { input} = this.state
     const { dispatch, navigation } = this.props;
+    
     if (input) {
-      dispatch(handleAddDeck(input));
+      const lowercaseInput = input.toLowerCase()
+      dispatch(handleAddDeck(lowercaseInput));
     }
 
     this.setState(() => ({

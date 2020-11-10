@@ -34,13 +34,22 @@ export function getDecks() {
   });
 }
 
-export function addDeck({ deck }) {
-  return AsyncStorage.mergeItem(
-    MOBILE_FLASHCARD_KEY,
-    JSON.stringify({
-      deck,
-    })
-  );
+export function checkStorage() {
+    AsyncStorage.getItem(MOBILE_FLASHCARD_KEY).then((res) => console.log(res));
 }
 
-export function addQuestion({ question }) {}
+export async function addDeck(deck) {
+  return AsyncStorage.mergeItem(
+    MOBILE_FLASHCARD_KEY,
+    JSON.stringify({decks: {
+        [deck]: {
+          id: String(deck),
+          questions: [],
+        },
+    }})
+  ).then(AsyncStorage.getItem(MOBILE_FLASHCARD_KEY).then((res) => {return res}));
+}
+
+export function addQuestion({ deck, question, answer }) {
+  return AsyncStorage.mergeItem(MOBILE_FLASHCARD_KEY, JSON.stringify);
+}

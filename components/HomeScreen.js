@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import DeckPreview from "../components/DeckPreview";
 import { handleGetDecks } from "../actions";
-import { handleSetDecks } from "../utils/api.js"
+import { handleSetDecks, checkStorage } from "../utils/api.js"
 import { StyleSheet, Text, ScrollView, View, TouchableOpacity} from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
@@ -15,7 +15,6 @@ class HomeScreen extends React.Component {
   
   render() {
     const { decks, navigation } = this.props;
-    console.log(this.props)
     const deckArray = [];
     for (const key in decks) {
       deckArray.push(decks[key]);
@@ -36,6 +35,10 @@ class HomeScreen extends React.Component {
           <TouchableOpacity style={styles.deckButton}
           onPress={() => navigation.navigate("AddDeck")}>
             <Text>Add Deck</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.deckButton}
+          onPress={() => checkStorage()}>
+            <Text>Storage</Text>
           </TouchableOpacity>
       </ScrollView>
       </View>
