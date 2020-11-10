@@ -2,24 +2,29 @@ import React from "react";
 import { connect } from "react-redux";
 import DeckPreview from "../components/DeckPreview";
 import { handleGetDecks } from "../actions";
-import { StyleSheet, Text, View, TouchableOpacity} from "react-native";
+import { handleSetDecks } from "../utils/api.js"
+import { StyleSheet, Text, ScrollView, View, TouchableOpacity} from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
 class HomeScreen extends React.Component {
   
   componentDidMount() {
-    this.props.dispatch(handleGetDecks());
+    handleSetDecks()
+    .then(this.props.dispatch(handleGetDecks()))
   }
   
   render() {
     const { decks, navigation } = this.props;
+    console.log(this.props)
     const deckArray = [];
     for (const key in decks) {
       deckArray.push(decks[key]);
     }
     return (
-      <View style={styles.container}>
+      <View style={{flex: 1}}>
+      <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.header}>Dom's Flashcards</Text>
+        
         {deckArray &&
           deckArray.map((deck) => {
             return (
@@ -32,6 +37,7 @@ class HomeScreen extends React.Component {
           onPress={() => navigation.navigate("AddDeck")}>
             <Text>Add Deck</Text>
           </TouchableOpacity>
+      </ScrollView>
       </View>
     );
   }

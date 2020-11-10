@@ -9,9 +9,9 @@ import Deck from "./components/Deck"
 import Quiz from "./components/Quiz"
 import AddQuestion from "./components/AddQuestion"
 import AddDeck from "./components/AddDeck"
-import middleware from "./middleware";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import middleware from "./middleware";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(middleware));

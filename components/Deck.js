@@ -18,7 +18,7 @@ class Deck extends React.Component {
         <View style={styles.deckBottom}>
           <TouchableOpacity 
           style={styles.deckButton}
-          onPress={() => navigation.navigate("AddQuestion")}>
+          onPress={() => navigation.navigate("AddQuestion", { deck: deck })}>
             <Text>Add Question</Text>
           </TouchableOpacity>
           <TouchableOpacity
