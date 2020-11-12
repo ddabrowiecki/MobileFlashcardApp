@@ -12,9 +12,16 @@ import AddDeck from "./components/AddDeck"
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import middleware from "./middleware";
+import { MOBILE_FLASHCARD_KEY }from "./utils/api.js"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(middleware));
+
+// store.subscribe(() => AsyncStorage.setItem(
+//   MOBILE_FLASHCARD_KEY,JSON.stringify(store.getState())
+//   )
+// )
 
 const Stack = createStackNavigator();
 

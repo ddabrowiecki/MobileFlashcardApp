@@ -3,7 +3,7 @@ export const RECEIVE_DECKS = "RECEIVE_DECKS";
 export const ADD_DECK = "ADD_DECK";
 export const ADD_QUESTION = "ADD_QUESTION";
 
-import { getDecks, addDeck } from "../utils/api.js";
+import { getDecks, addDeck, addQuestion } from "../utils/api.js";
 
 export function handleGetDecks() {
   return (dispatch) => {

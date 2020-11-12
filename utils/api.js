@@ -35,21 +35,42 @@ export function getDecks() {
 }
 
 export function checkStorage() {
-    AsyncStorage.getItem(MOBILE_FLASHCARD_KEY).then((res) => console.log(res));
+  AsyncStorage.getItem(MOBILE_FLASHCARD_KEY).then((res) => console.log(res));
 }
 
 export async function addDeck(deck) {
   return AsyncStorage.mergeItem(
     MOBILE_FLASHCARD_KEY,
-    JSON.stringify({decks: {
+    JSON.stringify({
+      decks: {
         [deck]: {
           id: String(deck),
           questions: [],
         },
-    }})
-  ).then(AsyncStorage.getItem(MOBILE_FLASHCARD_KEY).then((res) => {return res}));
+      },
+    })
+  ).then(
+    AsyncStorage.getItem(MOBILE_FLASHCARD_KEY).then((res) => {
+      return res;
+    })
+  );
 }
 
-export function addQuestion({ deck, question, answer }) {
-  return AsyncStorage.mergeItem(MOBILE_FLASHCARD_KEY, JSON.stringify);
+export function addQuestion(deck, newQuestion, newAnswer) {
+  const questionObject = { question: newQuestion, answer: newAnswer };
+  return AsyncStorage.getItem(MOBILE_FLASHCARD_KEY).then((res) => {
+    // in order to use spread operator to merge the new data
+    const previousData = JSON.parse(res)
+    previousData.decks[deck] = {
+      ...previousData.decks[deck],
+      questions: previousData.decks[deck].questions.concat([questionObject])
+    }
+    console.log(previousData)
+    return previousData
+  })
+    // MOBILE_FLASHCARD_KEY,
+    // JSON.stringify({
+    //   [deck]: {
+    //     [questions]: questions.concat(questionObject),
+     
 }
