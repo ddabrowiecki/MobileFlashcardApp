@@ -27,25 +27,25 @@ export function addDeckToStore(deck) {
   };
 }
 
-export function addQuestionToStore(question) {
+export function addQuestionToStore(deck, question, answer) {
   return {
     type: ADD_QUESTION,
+    deck,
     question,
+    answer,
   };
 }
 
 export function handleAddDeck(deck) {
   return (dispatch) => {
-    addDeck(deck).then(
-    dispatch(addDeckToStore(deck))
-    );
-}
+    addDeck(deck).then(dispatch(addDeckToStore(deck)));
+  };
 }
 
 export function handleAddQuestion(deck, question, answer) {
   return (dispatch) => {
-    addQuestion(deck, question, answer).then((question) => {
-      dispatch(addQuestionToStore(question));
-    });
+    addQuestion(deck, question, answer).then(
+      dispatch(addQuestionToStore(deck, question, answer))
+    );
   };
 }

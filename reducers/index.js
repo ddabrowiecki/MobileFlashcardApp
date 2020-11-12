@@ -1,6 +1,6 @@
 import { ADD_DECK } from "../actions/index.js";
 import { RECEIVE_DECKS } from "../actions/index.js";
-import { ADD_QUESTION } from '../actions/index.js'
+import { ADD_QUESTION } from "../actions/index.js";
 
 function decks(state = {}, action) {
   switch (action.type) {
@@ -17,12 +17,15 @@ function decks(state = {}, action) {
     case ADD_QUESTION:
       return {
         ...state,
-        [action.deck]: {
-          ...state[action.deck],
-          questions: state[action.deck].questions.concat({
-            question: action.question,
-            answer: action.answer,
-          }),
+        decks: {
+          ...state.decks,
+          [action.deck]: {
+            ...state.decks[action.deck],
+            questions: state.decks[action.deck].questions.concat({
+              question: action.question,
+              answer: action.answer,
+            }),
+          },
         },
       };
     default:

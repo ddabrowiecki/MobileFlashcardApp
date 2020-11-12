@@ -37,7 +37,7 @@ class HomeScreen extends React.Component {
             <Text>Add Deck</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.deckButton}
-          onPress={() => checkStorage()}>
+          onPress={() => console.log(this.props.decks)}>
             <Text>Storage</Text>
           </TouchableOpacity>
       </ScrollView>
