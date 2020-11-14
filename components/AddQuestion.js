@@ -30,7 +30,8 @@ class AddQuestion extends React.Component {
 
     if (questionInput && answerInput) {
       const deckId = deck.id;
-      dispatch(handleAddQuestion(deckId, questionInput, answerInput));
+      const lowercaseDeck = String(deckId).toLowerCase()
+      dispatch(handleAddQuestion(lowercaseDeck, questionInput, answerInput));
     }
 
     this.setState(() => ({
@@ -38,7 +39,7 @@ class AddQuestion extends React.Component {
       answerInput: "",
     }));
 
-    navigation.navigate("Deck");
+    navigation.navigate("HomeScreen");
   };
 
   render() {

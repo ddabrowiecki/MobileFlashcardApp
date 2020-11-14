@@ -16,6 +16,7 @@ function decks(state = {}, action) {
       }
       };
     case ADD_QUESTION:
+      console.log(action)
       return {
         ...state,
         decks: {
