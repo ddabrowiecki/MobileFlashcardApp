@@ -39,21 +39,21 @@ export function checkStorage() {
 }
 
 export async function addDeck(deck) {
-  return AsyncStorage.mergeItem(
-    MOBILE_FLASHCARD_KEY,
-    JSON.stringify({
-      decks: {
-        [deck]: {
+  return AsyncStorage.getItem(MOBILE_FLASHCARD_KEY)
+    .then((res) => {
+      const previousData = JSON.parse(res);
+      previousData.decks = {
+        ...previousData.decks,
+        [deck] : {
           id: String(deck),
           questions: [],
-        },
-      },
+        }
+      };
+      return previousData;
     })
-  ).then(
-    AsyncStorage.getItem(MOBILE_FLASHCARD_KEY).then((res) => {
-      return res;
-    })
-  );
+    .then((res) => {
+      return AsyncStorage.mergeItem(MOBILE_FLASHCARD_KEY, JSON.stringify(res));
+    });
 }
 
 export function addQuestion(deck, newQuestion, newAnswer) {
@@ -71,4 +71,18 @@ export function addQuestion(deck, newQuestion, newAnswer) {
     .then((res) => {
       return AsyncStorage.mergeItem(MOBILE_FLASHCARD_KEY, JSON.stringify(res));
     });
+}
+
+export function deleteDeck(deck) {
+  console.log(deck)
+  return AsyncStorage.getItem(MOBILE_FLASHCARD_KEY)
+  .then((res) => {
+    const previousData = JSON.parse(res);
+    const lowercaseDeck = String(deck).toLowerCase()
+    delete previousData.decks[lowercaseDeck]
+    return previousData;
+  })
+  .then((res) => {
+    return AsyncStorage.setItem(MOBILE_FLASHCARD_KEY, JSON.stringify(res))
+  })
 }

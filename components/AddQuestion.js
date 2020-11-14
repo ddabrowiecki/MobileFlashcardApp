@@ -30,8 +30,7 @@ class AddQuestion extends React.Component {
     
     if (questionInput && answerInput) {
       const deckId = deck.id
-      const lowercaseDeck = deckId.toLowerCase()
-      dispatch(handleAddQuestion(lowercaseDeck, questionInput, answerInput));
+      dispatch(handleAddQuestion(deckId, questionInput, answerInput));
     }
 
     this.setState(() => ({

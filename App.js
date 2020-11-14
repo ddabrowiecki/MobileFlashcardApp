@@ -5,15 +5,17 @@ import { createStore, compose } from "redux";
 import { Provider } from "react-redux";
 import reducer from "./reducers";
 import HomeScreen from "./components/HomeScreen";
-import Deck from "./components/Deck"
-import Quiz from "./components/Quiz"
-import AddQuestion from "./components/AddQuestion"
-import AddDeck from "./components/AddDeck"
+import Deck from "./components/Deck";
+import Quiz from "./components/Quiz";
+import AddQuestion from "./components/AddQuestion";
+import AddDeck from "./components/AddDeck";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import middleware from "./middleware";
-import { MOBILE_FLASHCARD_KEY }from "./utils/api.js"
+import { MOBILE_FLASHCARD_KEY } from "./utils/api.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setLocalNotification } from "./utils/helpers";
+import { render } from "react-dom";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(middleware));
@@ -25,10 +27,14 @@ const store = createStore(reducer, composeEnhancers(middleware));
 
 const Stack = createStackNavigator();
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Provider store={store}>
+export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+  render() {
+    return (
+      <NavigationContainer>
+        <Provider store={store}>
           <Stack.Navigator>
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="Deck" component={Deck} />
@@ -36,7 +42,8 @@ export default function App() {
             <Stack.Screen name="AddQuestion" component={AddQuestion} />
             <Stack.Screen name="AddDeck" component={AddDeck} />
           </Stack.Navigator>
-      </Provider>
-    </NavigationContainer>
-  );
+        </Provider>
+      </NavigationContainer>
+    );
+  }
 }

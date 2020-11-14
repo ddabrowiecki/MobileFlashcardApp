@@ -1,6 +1,4 @@
-import { ADD_DECK } from "../actions/index.js";
-import { RECEIVE_DECKS } from "../actions/index.js";
-import { ADD_QUESTION } from "../actions/index.js";
+import { ADD_DECK, RECEIVE_DECKS, ADD_QUESTION, DELETE_DECK } from "../actions/index.js";
 
 function decks(state = {}, action) {
   switch (action.type) {
@@ -9,10 +7,13 @@ function decks(state = {}, action) {
     case ADD_DECK:
       return {
         ...state,
+        decks: {
+        ...state.decks,
         [action.deck]: {
           id: action.deck,
           questions: [],
         },
+      }
       };
     case ADD_QUESTION:
       return {
