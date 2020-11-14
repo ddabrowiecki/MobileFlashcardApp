@@ -94,11 +94,11 @@ export default class Quiz extends React.Component {
     } = this.state;
     const { navigation } = this.props;
     return (
-      <View>
+      <View style={styles.container}>
         {index === deck.questions.length && (
           <View>
-            <Text style={styles.answer}>All done!</Text>
-            <Text>You got {correctAnswers} right!</Text>
+            <Text style={styles.question}>All done!</Text>
+            <Text style={styles.textBox}>You got {correctAnswers} right!</Text>
             <TouchableOpacity
               onPress={this.handleEndQuiz}
               style={styles.deckButton}
@@ -115,8 +115,8 @@ export default class Quiz extends React.Component {
         )}
         {deck.questions.slice(index, index + 1).map((entry) => {
           return (
-            <View key={entry.question}>
-              <Text>{questionsRemaining} questions remaining</Text>
+            <View style={styles.container} key={entry.question}>
+    
               <Text style={styles.question}>{entry.question}</Text>
               {showAnswer ? (
                 <View>
@@ -125,12 +125,12 @@ export default class Quiz extends React.Component {
               ) : (
                 <TouchableOpacity
                   onPress={this.handleShowAnswer}
-                  style={styles.deckButton}
+                  style={styles.answer}
                 >
                   <Text>Answer</Text>
                 </TouchableOpacity>
               )}
-              <Text> Was your answer correct? </Text>
+              <Text style={styles.textBox}> Was your answer correct? </Text>
               <View style={styles.yesNoWrapper}>
                 <TouchableOpacity
                   onPress={this.handleYes}
@@ -153,6 +153,7 @@ export default class Quiz extends React.Component {
               >
                 <Text>Next Question</Text>
               </TouchableOpacity>
+              <Text style={styles.questionsRemaining}>{questionsRemaining} questions remaining</Text>
             </View>
           );
         })}
@@ -162,14 +163,27 @@ export default class Quiz extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  // deckWrapper: {
-  //   flex: 1,
-  //   padding: 10,
-  //   justifyContent: "center",
-  // },
+  container: {
+    alignItems: "center",
+  },
+
+  buttonText: {
+    textAlign: "center",
+    fontSize: 20,
+  },
+  textBox: {
+    fontSize: 25,
+    alignItems: "center",
+    textAlign: "center",
+  },
   yesNoWrapper: {
     justifyContent: "space-around",
     flexDirection: "row",
+  },
+
+  questionsRemaining: {
+    justifyContent: "flex-end",
+    fontSize: 20,
   },
 
   yesNoButton: {
@@ -180,6 +194,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     margin: 10,
     padding: 10,
+    fontSize: 20,
+    alignItems: "center",
   },
 
   yesNoSelected: {
@@ -191,14 +207,26 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     backgroundColor: "red",
+    fontSize: 20,
+    alignItems: "center",
   },
 
   question: {
     color: "red",
     fontSize: 40,
+    textAlign: "center",
+    marginTop: 20,
   },
   answer: {
-    fontSize: 20,
+    fontSize: 30,
+    padding: 10,
+    borderColor: "red",
+    borderWidth: 4,
+    borderRadius: 6,
+    textAlign: "center",
+    margin: 20,
+    width: 250,
+    alignItems: "center",
   },
   deckButton: {
     fontSize: 30,
@@ -207,7 +235,8 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderRadius: 6,
     textAlign: "center",
-    margin: 10,
+    margin: 20,
     width: 250,
+    alignItems: "center",
   },
 });

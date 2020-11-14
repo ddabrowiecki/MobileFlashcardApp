@@ -30,7 +30,7 @@ class AddDeck extends React.Component {
       dispatch(handleAddDeck(lowercaseInput));
     }
 
-    navigation.navigate("Deck", {deck: this.handleLowercaseInput(input)})
+    navigation.navigate("HomeScreen")
 
     this.setState(() => ({
       input: "",

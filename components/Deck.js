@@ -2,15 +2,8 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { handleDeleteDeck } from "../actions/index"
 
 class Deck extends React.Component {
-
-  handleDelete = (deckId) => {
-    const { navigation } = this.props;
-    handleDeleteDeck(deckId);
-    navigation.navigate("HomeScreen");
-  }
 
   render() {
     const { deck } = this.props.route.params;
@@ -34,11 +27,6 @@ class Deck extends React.Component {
             onPress={() => navigation.navigate("Quiz", { deck: deck })}
           >
             <Text style={styles.buttonText}>Start Quiz</Text>
-          </TouchableOpacity>
-          <TouchableOpacity 
-          style={styles.deckButton}
-          onPress={() => this.handleDelete(deck.id)}>
-            <Text style={styles.buttonText}>Delete Deck</Text>
           </TouchableOpacity>
         </View>
       </View>

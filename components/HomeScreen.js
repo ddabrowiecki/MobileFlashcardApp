@@ -100,6 +100,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     margin: 10,
     width: 250,
-    marginTop: 150,
+    marginTop: 50,
   },
 });
