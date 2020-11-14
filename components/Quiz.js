@@ -6,6 +6,8 @@ export default class Quiz extends React.Component {
   state = {
     showAnswer: false,
     index: 0,
+    correctAnswers: 0,
+    questionsRemaining: 0,
   };
 
   handleShowAnswer = () => {
@@ -14,13 +16,32 @@ export default class Quiz extends React.Component {
     });
   };
 
+  handleYes = () => {
+
+  }
+
+  handleNo = () => {
+
+  }
+
+  handleQuestionsRemaining = (numberQuestions) => {
+    this.setState({ questionsRemaining: numberQuestions })
+  }
+
   handleNextQuestion = () => {
-    this.setState({ index: this.state.index + 1, showAnswer: false });
+    this.setState({ 
+      index: this.state.index + 1, 
+      showAnswer: false, 
+      questionsRemaining: this.state.questionsRemaining - 1 });
   };
+
+  componentDidMount () {
+    this.handleQuestionsRemaining(this.props.route.params.deck.questions.length)
+  }
 
   render() {
     const { deck } = this.props.route.params;
-    const { showAnswer, index } = this.state;
+    const { showAnswer, index, questionsRemaining } = this.state;
     const { navigation } = this.props;
     return (
       <View>
@@ -37,6 +58,7 @@ export default class Quiz extends React.Component {
         {deck.questions.slice(index, index + 1).map((entry) => {
           return (
             <View key={entry.question}>
+              <Text>{questionsRemaining} questions remaining</Text>
               <Text style={styles.question}>{entry.question}</Text>
               {showAnswer ? (
                 <View>
@@ -50,6 +72,20 @@ export default class Quiz extends React.Component {
                   <Text>Answer</Text>
                 </TouchableOpacity>
               )}
+              <Text> Was your answer correct? </Text>
+              <TouchableOpacity
+                onPress={this.handleYes}
+                style={styles.deckButton}
+              >
+                <Text>Yes</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={this.handleNo}
+                style={styles.deckButton}
+              >
+                <Text>No</Text>
+              </TouchableOpacity>
+
               <TouchableOpacity
                 onPress={this.handleNextQuestion}
                 style={styles.deckButton}
