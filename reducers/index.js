@@ -1,4 +1,4 @@
-import { ADD_DECK, RECEIVE_DECKS, ADD_QUESTION, DELETE_DECK } from "../actions/index.js";
+import { ADD_DECK, RECEIVE_DECKS, ADD_QUESTION } from "../actions/index.js";
 
 function decks(state = {}, action) {
   switch (action.type) {

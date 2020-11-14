@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { handleAddQuestion } from "../actions/index"
+import { handleAddQuestion } from "../actions/index";
 
 class AddQuestion extends React.Component {
   state = {
@@ -13,23 +13,23 @@ class AddQuestion extends React.Component {
   handleQuestionInput = (questionInput) => {
     this.setState(() => ({
       questionInput,
-    }))
-  }
+    }));
+  };
 
   handleAnswerInput = (answerInput) => {
     this.setState(() => ({
       answerInput,
-    }))
-  }
+    }));
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { questionInput, answerInput} = this.state
+    const { questionInput, answerInput } = this.state;
     const { dispatch, navigation } = this.props;
-    const { deck } = this.props.route.params
-    
+    const { deck } = this.props.route.params;
+
     if (questionInput && answerInput) {
-      const deckId = deck.id
+      const deckId = deck.id;
       dispatch(handleAddQuestion(deckId, questionInput, answerInput));
     }
 
@@ -38,28 +38,41 @@ class AddQuestion extends React.Component {
       answerInput: "",
     }));
 
-    navigation.navigate("Deck")
-  }
+    navigation.navigate("Deck");
+  };
 
   render() {
     const { questionInput, answerInput } = this.props;
     return (
-      <View>
-        <Text>Question</Text>
-        <TextInput value={questionInput} onChangeText={this.handleQuestionInput}></TextInput>
-        <Text>Answer</Text>
-        <TextInput value={answerInput} onChangeText={this.handleAnswerInput}></TextInput>
+      <View style={styles.container}>
+        <Text style={styles.textHeader}>Question</Text>
+        <TextInput
+          style={styles.input}
+          value={questionInput}
+          onChangeText={this.handleQuestionInput}
+        ></TextInput>
+        <Text style={styles.textHeader}>Answer</Text>
+        <TextInput
+          style={styles.input}
+          value={answerInput}
+          onChangeText={this.handleAnswerInput}
+        ></TextInput>
         <TouchableOpacity>
-          <Text style={styles.deckButton} onPress={this.handleSubmit}>Submit</Text>
+          <Text style={styles.deckButton} onPress={this.handleSubmit}>
+            Submit
+          </Text>
         </TouchableOpacity>
       </View>
     );
   }
 }
 
-export default connect()(AddQuestion)
+export default connect()(AddQuestion);
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+  },
   deckButton: {
     fontSize: 30,
     padding: 10,
@@ -68,6 +81,20 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     textAlign: "center",
     margin: 10,
+    marginTop: 60,
     width: 250,
+  },
+  textHeader: {
+    color: "red",
+    fontSize: 50,
+    alignItems: "center",
+  },
+  input: {
+    borderColor: "black",
+    borderWidth: 2,
+    width: 300,
+    height: 40,
+    justifyContent: "center",
+    borderRadius: 6,
   },
 });

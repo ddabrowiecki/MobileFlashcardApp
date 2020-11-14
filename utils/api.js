@@ -11,7 +11,7 @@ let initialData = {
     },
     sailing: {
       id: "Sailing",
-      questions: [{ question: "What is a sail?", answer: "The go material" }],
+      questions: [{ question: "What is a sail?", answer: "The material that helps you move" }],
     },
   },
 };
@@ -44,10 +44,10 @@ export async function addDeck(deck) {
       const previousData = JSON.parse(res);
       previousData.decks = {
         ...previousData.decks,
-        [deck] : {
+        [deck]: {
           id: String(deck),
           questions: [],
-        }
+        },
       };
       return previousData;
     })
@@ -71,18 +71,4 @@ export function addQuestion(deck, newQuestion, newAnswer) {
     .then((res) => {
       return AsyncStorage.mergeItem(MOBILE_FLASHCARD_KEY, JSON.stringify(res));
     });
-}
-
-export function deleteDeck(deck) {
-  console.log(deck)
-  return AsyncStorage.getItem(MOBILE_FLASHCARD_KEY)
-  .then((res) => {
-    const previousData = JSON.parse(res);
-    const lowercaseDeck = String(deck).toLowerCase()
-    delete previousData.decks[lowercaseDeck]
-    return previousData;
-  })
-  .then((res) => {
-    return AsyncStorage.setItem(MOBILE_FLASHCARD_KEY, JSON.stringify(res))
-  })
 }

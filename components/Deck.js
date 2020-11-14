@@ -27,18 +27,18 @@ class Deck extends React.Component {
           <TouchableOpacity 
           style={styles.deckButton}
           onPress={() => navigation.navigate("AddQuestion", { deck: deck })}>
-            <Text>Add Question</Text>
+            <Text style={styles.buttonText}>Add Question</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.deckButton}
             onPress={() => navigation.navigate("Quiz", { deck: deck })}
           >
-            <Text>Start Quiz</Text>
+            <Text style={styles.buttonText}>Start Quiz</Text>
           </TouchableOpacity>
           <TouchableOpacity 
           style={styles.deckButton}
           onPress={() => this.handleDelete(deck.id)}>
-            <Text>Delete Deck</Text>
+            <Text style={styles.buttonText}>Delete Deck</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -61,6 +61,10 @@ const styles = StyleSheet.create({
   },
   cardAmount: {
     fontSize: 30,
+  },
+  buttonText: {
+    textAlign: "center",
+    fontSize: 20,
   },
   deckTop: {
     flex: 1,

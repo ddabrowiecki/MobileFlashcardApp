@@ -46,13 +46,7 @@ class HomeScreen extends React.Component {
               style={styles.deckButton}
               onPress={() => navigation.navigate("AddDeck")}
             >
-              <Text>Add Deck</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.deckButton}
-              onPress={() => console.log(this.props.decks)}
-            >
-              <Text>Storage</Text>
+              <Text style={styles.buttonText}>Add Deck</Text>
             </TouchableOpacity>
         </ScrollView>
       </View>
@@ -89,6 +83,10 @@ const styles = StyleSheet.create({
     borderColor: "black",
     margin: 5,
   },
+  buttonText: {
+    textAlign: "center",
+    fontSize: 20,
+  },
   deckPreview: {
     flex: 1,
     alignItems: "center",
@@ -102,5 +100,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     margin: 10,
     width: 250,
+    marginTop: 150,
   },
 });

@@ -41,9 +41,9 @@ class AddDeck extends React.Component {
   render() {
     const { input } = this.props;
     return (
-      <View>
-        <Text>Please enter the name of the new deck</Text>
-        <TextInput value={input} onChangeText={this.handleTextInput}></TextInput>
+      <View style={styles.container}>
+        <Text style={styles.textHeader}>Please enter the name of the new deck</Text>
+        <TextInput style={styles.input} value={input} onChangeText={this.handleTextInput}></TextInput>
         <TouchableOpacity>
           <Text style={styles.deckButton} onPress={this.handleSubmit}>Submit</Text>
         </TouchableOpacity>
@@ -55,6 +55,9 @@ class AddDeck extends React.Component {
 export default connect()(AddDeck)
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+  },
   deckButton: {
     fontSize: 30,
     padding: 10,
@@ -64,5 +67,21 @@ const styles = StyleSheet.create({
     textAlign: "center",
     margin: 10,
     width: 250,
+  },
+  textHeader: {
+    color: "red",
+    fontSize: 30,
+    alignItems: "center",
+    margin: 30,
+    textAlign: "center",
+  },
+  input: {
+    borderColor: "black",
+    borderWidth: 2,
+    width: 300,
+    height: 40,
+    justifyContent: "center",
+    borderRadius: 6,
+    margin: 30,
   },
 });
