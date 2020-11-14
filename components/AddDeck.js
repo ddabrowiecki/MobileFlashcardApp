@@ -15,21 +15,27 @@ class AddDeck extends React.Component {
     });
   };
 
+  handleLowercaseInput = (input) => {
+    const newInput = input.toLowerCase()
+    return newInput
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const { input} = this.state
     const { dispatch, navigation } = this.props;
     
     if (input) {
-      const lowercaseInput = input.toLowerCase()
+      const lowercaseInput = this.handleLowercaseInput(input)
       dispatch(handleAddDeck(lowercaseInput));
     }
+
+    navigation.navigate("Deck", {deck: this.handleLowercaseInput(input)})
 
     this.setState(() => ({
       input: "",
     }));
 
-    navigation.navigate("HomeScreen")
   }
 
   render() {

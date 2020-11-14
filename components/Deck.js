@@ -21,7 +21,7 @@ class Deck extends React.Component {
           <Text style={styles.deckName}>{deck.id}</Text>
           <Text
             style={styles.cardAmount}
-          >{`${deck.questions.length} cards`}</Text>
+          >{deck.questions && `${deck.questions.length} cards`}</Text>
         </View>
         <View style={styles.deckBottom}>
           <TouchableOpacity 

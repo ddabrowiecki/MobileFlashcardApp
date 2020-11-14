@@ -8,6 +8,8 @@ export default class Quiz extends React.Component {
     index: 0,
     correctAnswers: 0,
     questionsRemaining: 0,
+    yesSelected: false,
+    noSelected: false,
   };
 
   handleShowAnswer = () => {
@@ -17,41 +19,97 @@ export default class Quiz extends React.Component {
   };
 
   handleYes = () => {
-
-  }
-
-  handleNo = () => {
-
-  }
-
-  handleQuestionsRemaining = (numberQuestions) => {
-    this.setState({ questionsRemaining: numberQuestions })
-  }
-
-  handleNextQuestion = () => {
-    this.setState({ 
-      index: this.state.index + 1, 
-      showAnswer: false, 
-      questionsRemaining: this.state.questionsRemaining - 1 });
+    this.state.noSelected
+      ? this.setState({
+          noSelected: false,
+          yesSelected: true,
+        })
+      : this.setState({
+          yesSelected: true,
+        });
   };
 
-  componentDidMount () {
-    this.handleQuestionsRemaining(this.props.route.params.deck.questions.length)
+  handleNo = () => {
+    this.state.yesSelected
+      ? this.setState({
+          noSelected: true,
+          yesSelected: false,
+        })
+      : this.setState({
+          noSelected: true,
+        });
+  };
+
+  handleQuestionsRemaining = (numberQuestions) => {
+    this.setState({ questionsRemaining: numberQuestions });
+  };
+
+  handleNextQuestion = () => {
+    this.setState({
+      index: this.state.index + 1,
+      showAnswer: false,
+      questionsRemaining: this.state.questionsRemaining - 1,
+      yesSelected: false,
+      noSelected: false,
+    });
+    this.state.yesSelected &&
+      this.setState({
+        correctAnswers: this.state.correctAnswers + 1,
+      });
+  };
+
+  handleEndQuiz = () => {
+    const { navigation } = this.props;
+    navigation.navigate("HomeScreen");
+    this.setState({
+      correctAnswers: 0,
+    });
+  };
+
+  handleRestartQuiz = () => {
+    this.setState({
+      correctAnswers: 0,
+      index: 0,
+    });
+    this.handleQuestionsRemaining(
+      this.props.route.params.deck.questions.length
+    );
+  };
+
+  componentDidMount() {
+    this.handleQuestionsRemaining(
+      this.props.route.params.deck.questions.length
+    );
   }
 
   render() {
     const { deck } = this.props.route.params;
-    const { showAnswer, index, questionsRemaining } = this.state;
+    const {
+      showAnswer,
+      index,
+      questionsRemaining,
+      correctAnswers,
+      yesSelected,
+      noSelected,
+    } = this.state;
     const { navigation } = this.props;
     return (
       <View>
         {index === deck.questions.length && (
           <View>
             <Text style={styles.answer}>All done!</Text>
-            <TouchableOpacity 
-            onPress={() => navigation.navigate("HomeScreen")}
-            style={styles.deckButton}>
+            <Text>You got {correctAnswers} right!</Text>
+            <TouchableOpacity
+              onPress={this.handleEndQuiz}
+              style={styles.deckButton}
+            >
               <Text>Back to Main Menu</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={this.handleRestartQuiz}
+              style={styles.deckButton}
+            >
+              <Text>Restart Quiz</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -73,19 +131,22 @@ export default class Quiz extends React.Component {
                 </TouchableOpacity>
               )}
               <Text> Was your answer correct? </Text>
-              <TouchableOpacity
-                onPress={this.handleYes}
-                style={styles.deckButton}
-              >
-                <Text>Yes</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={this.handleNo}
-                style={styles.deckButton}
-              >
-                <Text>No</Text>
-              </TouchableOpacity>
-
+              <View style={styles.yesNoWrapper}>
+                <TouchableOpacity
+                  onPress={this.handleYes}
+                  style={
+                    yesSelected ? styles.yesNoSelected : styles.yesNoButton
+                  }
+                >
+                  <Text>Yes</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={this.handleNo}
+                  style={noSelected ? styles.yesNoSelected : styles.yesNoButton}
+                >
+                  <Text>No</Text>
+                </TouchableOpacity>
+              </View>
               <TouchableOpacity
                 onPress={this.handleNextQuestion}
                 style={styles.deckButton}
@@ -106,6 +167,32 @@ const styles = StyleSheet.create({
   //   padding: 10,
   //   justifyContent: "center",
   // },
+  yesNoWrapper: {
+    justifyContent: "space-around",
+    flexDirection: "row",
+  },
+
+  yesNoButton: {
+    borderColor: "red",
+    borderWidth: 4,
+    borderRadius: 6,
+    width: 100,
+    textAlign: "center",
+    margin: 10,
+    padding: 10,
+  },
+
+  yesNoSelected: {
+    borderColor: "red",
+    borderWidth: 4,
+    borderRadius: 6,
+    width: 100,
+    textAlign: "center",
+    margin: 10,
+    padding: 10,
+    backgroundColor: "red",
+  },
+
   question: {
     color: "red",
     fontSize: 40,

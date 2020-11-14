@@ -2,17 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import DeckPreview from "../components/DeckPreview";
 import { handleGetDecks } from "../actions";
-import { handleSetDecks, checkStorage } from "../utils/api.js"
-import { StyleSheet, Text, ScrollView, View, TouchableOpacity} from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { handleSetDecks, checkStorage } from "../utils/api.js";
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  View,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 class HomeScreen extends React.Component {
-  
   componentDidMount() {
-    handleSetDecks()
-    .then(this.props.dispatch(handleGetDecks()))
+    handleSetDecks().then(this.props.dispatch(handleGetDecks()));
   }
-  
+
   render() {
     const { decks, navigation } = this.props;
     const deckArray = [];
@@ -20,27 +24,37 @@ class HomeScreen extends React.Component {
       deckArray.push(decks[key]);
     }
     return (
-      <View style={{flex: 1}}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.header}>Dom's Flashcards</Text>
-        
-        {deckArray &&
-          deckArray.map((deck) => {
-            return (
-              <Text key={deck.id}>
-                <DeckPreview deck={deck} style={styles.deckPreview} navigation = {navigation}/>
-              </Text>
-            );
-          })}
-          <TouchableOpacity style={styles.deckButton}
-          onPress={() => navigation.navigate("AddDeck")}>
-            <Text>Add Deck</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.deckButton}
-          onPress={() => console.log(this.props.decks)}>
-            <Text>Storage</Text>
-          </TouchableOpacity>
-      </ScrollView>
+      <View style={{ flex: 1 }}>
+        <ScrollView 
+        contentContainerStyle={styles.container}
+        style={{flex: 1}}>
+            <Text style={styles.header}>Dom's Flashcards</Text>
+
+            {deckArray &&
+              deckArray.map((deck) => {
+                return (
+                  <Text key={deck.id}>
+                    <DeckPreview
+                      deck={deck}
+                      style={styles.deckPreview}
+                      navigation={navigation}
+                    />
+                  </Text>
+                );
+              })}
+            <TouchableOpacity
+              style={styles.deckButton}
+              onPress={() => navigation.navigate("AddDeck")}
+            >
+              <Text>Add Deck</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.deckButton}
+              onPress={() => console.log(this.props.decks)}
+            >
+              <Text>Storage</Text>
+            </TouchableOpacity>
+        </ScrollView>
       </View>
     );
   }
@@ -49,7 +63,7 @@ class HomeScreen extends React.Component {
 function HomeScreenWrapper(props) {
   const navigation = useNavigation();
 
-  return <HomeScreen {...props} navigation={ navigation } />;
+  return <HomeScreen {...props} navigation={navigation} />;
 }
 
 function mapStateToProps({ decks }) {
@@ -85,7 +99,7 @@ const styles = StyleSheet.create({
     borderColor: "red",
     borderWidth: 4,
     borderRadius: 6,
-    textAlign: "center", 
+    textAlign: "center",
     margin: 10,
     width: 250,
   },
